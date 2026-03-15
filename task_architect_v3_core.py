@@ -69,5 +69,5 @@ while True:
     choice = input("\nDo you want to create another plan? (yes/no): ").lower().strip()
     
     if choice != "yes":
-        print("\nThank you for using Global Task Architect. Stay productive! Goodbye.")
+        print("\nThank you for using Global Task Architect. Stay productive! Goodbye.") 
         break
