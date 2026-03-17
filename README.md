@@ -1,23 +1,41 @@
-# Global Task Architect (v6) 🚀
+🌐 Global Task Architect v7.0 (The Architect Edition)
+🚀 Evolution from v1.0 to v7.0
+Tento projekt prošel brutální evolucí. Od jednoduchého generátoru úkolů jsme se dostali k robustnímu systému s ochranou dat, vizuální identitou a uživatelským manuálem.
 
-**Global Task Architect** je Python nástroj pro efektivní správu úkolů, logování času a automatizaci reportingu. Projekt vznikl s vizí vytvořit modulární systém, který pomůže jednotlivcům i týmům udržet přehled o prioritách a efektivitě.
+🛠️ New Features in v7.0
+Matrix Boot Sequence: Imlementováno dynamické načítání systému (matrix_print) pro autentický hackerský pocit.
 
-## ✨ Klíčové funkce (v6)
-* **Správa úkolů:** Plná kontrola nad životním cyklem úkolu.
-* **Exporty:** Podpora formátů pro snadné sdílení dat.
-* **Konfigurační vrstva:** Oddělení nastavení od kódu (v přípravě).
-* **Statistický modul:** Přehled o dokončené práci.
+Architect Manual: Integrovaný systémový pomocník. Stačí napsat help v terminálu.
 
-## 🛠️ Instalace a spuštění
-1. Klonujte repozitář: `git clone https://github.com/fajtlukas91-netizen/Global-Task-Architect.git`
-2. Přejděte do složky: `cd Global-Task-Architect`
-3. Spusťte hlavní skript: `python main.py`
+Data Validation: Program je nyní neprůstřelný. Ošetřuje prázdné vstupy a náhodné mezery (.strip()).
 
-## 📈 Vize projektu
-Projekt neustále rozvíjím. V budoucích verzích plánuji:
-- Integraci s externími API.
-- Grafické rozhraní pro lepší uživatelský zážitek.
-- Pokročilé databázové úložiště.
+System Commands: Přidána podpora pro příkazy help a exit přímo v hlavní smyčce.
 
----
-*Vytvořeno jako součást profesního portfolia se zaměřením na čistý kód a praktickou využitelnost.*
+Automated Backup Engine: Každé spuštění automaticky zálohuje stávající databázi úkolů do složky /backups s časovým razítkem.
+
+Multi-Format Export: Generuje přehledné .txt pro lidi a strukturované .csv pro stroje.
+
+💻 Tech Stack
+Language: Python 3.x
+
+Libraries: os, csv, shutil, datetime, time, sys
+
+UI: ANSI Escape Sequences (Matrix Green Theme)
+
+📖 How to Use (System Guide)
+Launch: Spusťte main.py a sledujte bootovací sekvenci.
+
+Commands:
+
+help - Zobrazí manuál pro správné zadávání dat.
+
+exit - Bezpečně ukončí systém.
+
+Input: Zadejte jméno, cíl a sekvenci úkolů oddělenou čárkou.
+
+Result: Systém okamžitě vygeneruje soubory a otevře ten hlavní pro kontrolu.
+
+🛡️ Data Safety
+Všechny plány jsou automaticky verzovány. Pokud omylem přepíšete důležitý soubor, najdete jeho kopii v adresáři backups/.
+
+Developer Note: > "Build. Secure. Automate. Repeat." > Aktuálně pracujeme na verzi v7.01, která přinese ještě inteligentnější zpracování dat.
