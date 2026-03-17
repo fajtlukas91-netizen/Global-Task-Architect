@@ -1,5 +1,6 @@
-import os
 import csv
+import os
+import shutil
 from datetime import datetime
 
 # --- MATRIX COLOR SCHEME ---
@@ -8,6 +9,16 @@ G_DARK = "\033[32m"    # Tmavší zelená (standard)
 BOLD = "\033[1m"       # Tučné
 UNDERLINE = "\033[4m"   # Podtržené
 END = "\033[0m"        # Reset barev
+
+def create_backup():
+    if not os.path.exists('backups'):
+        os.makedirs('backups')
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    backup_filename = f"backups/tasks_backup_{timestamp}.csv"
+    if os.path.exists('tasks.csv'):
+        shutil.copy('tasks.csv', backup_filename)
+        print(f"✅ Záloha vytvořena: {backup_filename}")
+
 
 def create_action_plan(name, main_goal, steps, deadline):
     current_time = datetime.now()
@@ -42,8 +53,11 @@ def create_action_plan(name, main_goal, steps, deadline):
     return txt_file
 
 # --- MAIN SYSTEM LOOP ---
+# TADY ZAVOLAME ZALOHU HNED PŘI STARTU
+create_backup()
+
 while True:
-    print(f"\n{G_BRIGHT}{BOLD}[ GLOBAL_TASK_ARCHITECT_v5 ]{END}")
+    print(f"\n{G_BRIGHT}{BOLD}[ GLOBAL_TASK_ARCHITECT_v6 ]{END}")
     print(f"{G_DARK}Initialising interface...{END}")
     
     u_name = input(f"{G_DARK}USER_NAME: {END}")
@@ -61,7 +75,3 @@ while True:
             os.startfile(created)
         except:
             pass
-
-    if input(f"\n{G_DARK}REBOOT_SYSTEM? (ano/ne): {END}").lower() != "ano":
-        print(f"\n{G_BRIGHT}{BOLD}SYSTEM_OFFLINE. Goodbye, {u_name}.{END}")
-        break
