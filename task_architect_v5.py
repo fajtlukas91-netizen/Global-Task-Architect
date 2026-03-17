@@ -1,18 +1,23 @@
 import os
-import csv  # Tato knihovna umí vytvářet tabulky pro Excel
+import csv
 from datetime import datetime
 
+# --- MATRIX COLOR SCHEME ---
+G_BRIGHT = "\033[92m"  # Jasně zelená
+G_DARK = "\033[32m"    # Tmavší zelená (standard)
+BOLD = "\033[1m"       # Tučné
+UNDERLINE = "\033[4m"   # Podtržené
+END = "\033[0m"        # Reset barev
+
 def create_action_plan(name, main_goal, steps, deadline):
-    # --- 1. PŘÍPRAVA DAT ---
     current_time = datetime.now()
     created_at = current_time.strftime("%d.%m.%Y %H:%M")
     file_timestamp = current_time.strftime("%H%M%S")
     
-    # Názvy souborů (vytvoříme dva různé výstupy)
     txt_file = f"plan_{name.lower()}_{file_timestamp}.txt"
     csv_file = f"plan_{name.lower()}_{file_timestamp}.csv"
 
-    # --- 2. EXPORT DO TXT (Klasický přehled pro lidi) ---
+    # Export do TXT
     with open(txt_file, "w", encoding="utf-8") as file:
         file.write(f"ACTION PLAN: {main_goal.upper()}\n")
         file.write(f"Created: {created_at} | Deadline: {deadline}\n")
@@ -20,40 +25,43 @@ def create_action_plan(name, main_goal, steps, deadline):
         for i, step in enumerate(steps, 1):
             file.write(f"{i}. [ ] {step}\n")
 
-    # --- 3. EXPORT DO CSV (Tabulka pro firmy a Excel) ---
-    # CSV = Comma Separated Values (data oddělená čárkou)
+    # Export do CSV
     with open(csv_file, "w", newline='', encoding="utf-8") as f:
         writer = csv.writer(f)
-        # Hlavička tabulky
         writer.writerow(["ID", "Task Description", "Status", "Created At"])
-        # Jednotlivé řádky
         for i, step in enumerate(steps, 1):
             writer.writerow([i, step, "To Do", created_at])
 
-    print(f"\n" + "="*40)
-    print(f"✅ ÚSPĚCH! Vygenerovány 2 formáty:")
-    print(f"1. TEXT: {txt_file} (pro rychlé čtení)")
-    print(f"2. DATA: {csv_file} (pro Excel/Analýzu)")
-    print("="*40)
+    # --- MATRIX STYLE TERMINAL OUTPUT ---
+    print(f"\n{G_BRIGHT}{BOLD}" + "v" * 50)
+    print(f" SYSTEM_REPORT: DATA_GENERATED_SUCCESSFULLY")
+    print(f"{END}{G_DARK} > FILE_01: {txt_file} (plain_text)")
+    print(f" > FILE_02: {csv_file} (data_structure)")
+    print(f"{G_BRIGHT}{BOLD}" + "ʌ" * 50 + f"{END}")
     
     return txt_file
 
-# --- HLAVNÍ SMYČKA ---
+# --- MAIN SYSTEM LOOP ---
 while True:
-    print("\n--- GLOBAL TASK ARCHITECT v5 ---")
-    u_name = input("Tvoje jméno: ")
-    u_goal = input("Hlavní cíl: ")
-    u_date = input("Termín (Deadline): ")
-    u_steps = input("Kroky (odděluj čárkou): ")
+    print(f"\n{G_BRIGHT}{BOLD}[ GLOBAL_TASK_ARCHITECT_v5 ]{END}")
+    print(f"{G_DARK}Initialising interface...{END}")
+    
+    u_name = input(f"{G_DARK}USER_NAME: {END}")
+    u_goal = input(f"{G_DARK}PRIMARY_GOAL: {END}")
+    u_date = input(f"{G_DARK}DEADLINE_STAMP: {END}")
+    u_steps = input(f"{G_DARK}TASK_SEQUENCE (split by comma): {END}")
 
     list_of_steps = [s.strip() for s in u_steps.split(",") if s.strip()]
 
     if not list_of_steps:
-        print("❌ Chyba: Musíš zadat aspoň jeden krok!")
+        print(f"\033[91m{BOLD}!! ERROR: SEQUENCE_EMPTY !!{END}")
     else:
         created = create_action_plan(u_name, u_goal, list_of_steps, u_date)
-        os.startfile(created) # Otevře TXT soubor pro kontrolu
+        try:
+            os.startfile(created)
+        except:
+            pass
 
-    if input("\nChceš vytvořit další plán? (ano/ne): ").lower() != "ano":
-        print("Měj produktivní den! Ahoj.")
+    if input(f"\n{G_DARK}REBOOT_SYSTEM? (ano/ne): {END}").lower() != "ano":
+        print(f"\n{G_BRIGHT}{BOLD}SYSTEM_OFFLINE. Goodbye, {u_name}.{END}")
         break
