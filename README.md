@@ -1,19 +1,23 @@
-# Global Task Architect 🚀
+# Global Task Architect (v6) 🚀
 
-A professional Python-based automation tool designed to transform user inputs into structured, timestamped action plans.
+**Global Task Architect** je Python nástroj pro efektivní správu úkolů, logování času a automatizaci reportingu. Projekt vznikl s vizí vytvořit modulární systém, který pomůže jednotlivcům i týmům udržet přehled o prioritách a efektivitě.
 
-## Key Features
-* **Interactive CLI:** User-friendly command-line interface for data entry.
-* **Task Analytics:** Automatically counts and indexes tasks using Python's `len()` and `enumerate()`.
-* **Smart Storage:** Generates unique filenames using timestamps (`strftime`) to prevent data overwriting.
-* **Professional Export:** Creates clean, readable `.txt` files with automated timestamps and goal tracking.
+## ✨ Klíčové funkce (v6)
+* **Správa úkolů:** Plná kontrola nad životním cyklem úkolu.
+* **Exporty:** Podpora formátů pro snadné sdílení dat.
+* **Konfigurační vrstva:** Oddělení nastavení od kódu (v přípravě).
+* **Statistický modul:** Přehled o dokončené práci.
 
-## Technical Stack
-* **Language:** Python 3.x
-* **Modules:** `os`, `datetime`
-* **Logic:** Loops, list comprehensions, file I/O operations.
+## 🛠️ Instalace a spuštění
+1. Klonujte repozitář: `git clone https://github.com/fajtlukas91-netizen/Global-Task-Architect.git`
+2. Přejděte do složky: `cd Global-Task-Architect`
+3. Spusťte hlavní skript: `python main.py`
 
-## How It Works
-1. Run the script: `task_architect_v4.py`
-2. Enter your goal, deadline, and steps (separated by commas).
-3. The system generates a formatted report and opens it automatically.
+## 📈 Vize projektu
+Projekt neustále rozvíjím. V budoucích verzích plánuji:
+- Integraci s externími API.
+- Grafické rozhraní pro lepší uživatelský zážitek.
+- Pokročilé databázové úložiště.
+
+---
+*Vytvořeno jako součást profesního portfolia se zaměřením na čistý kód a praktickou využitelnost.*
