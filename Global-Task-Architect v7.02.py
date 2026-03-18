@@ -22,16 +22,24 @@ def matrix_print(text, delay=0.03):
 
 def show_boot_sequence():
     os.system('cls' if os.name == 'nt' else 'clear')
-    matrix_print(f"{G_BRIGHT}>>> INITIALIZING ARCHITECT_CORE_v7.01...", 0.05)
+    # ASCII Art Header pro v7.02
+    print(f"{G_BRIGHT}")
+    print(r"  _    ____   ____ _   _ ___ _____ _____ ____ _____ ")
+    print(r" / \  |  _ \ / ___| | | |_ _|_   _| ____/ ___|_   _|")
+    print(r"/ _ \ | |_) | |   | |_| || |  | | |  _|| |     | |  ")
+    print(r"/ ___ \|  _ <| |___|  _  || |  | | | |__| |___  | |  ")
+    print(r"/_/   \_\_| \_\\____|_| |_|___| |_| |_____\____| |_|  ")
+    print(f"{END}")
+    matrix_print(f"{G_BRIGHT}>>> INITIALIZING ARCHITECT_CORE_v7.02_USER_FRIENDLY...", 0.05)
     matrix_print(f"{G_DARK}>>> DIRECTORY_CHECK: [BACKUPS, PLANS] OK.", 0.02)
     time.sleep(0.5)
 
 def show_guide():
     print(f"\n{BOLD}{UNDERLINE}--- ARCHITECT_MANUAL ---{END}")
-    print(f"{G_DARK}1. USER_NAME: Your identifier for file naming.")
-    print(f"2. PRIMARY_GOAL: The main objective of your plan.")
-    print(f"3. TASK_SEQUENCE: Separate tasks with a COMMA (e.g.: Task1, Task2).")
-    print(f"4. COMMANDS: 'help' for manual, 'exit' to quit.{END}")
+    print(f"{G_DARK}1. USER_NAME: Identifikátor pro název souboru.")
+    print(f"2. PRIMARY_GOAL: Hlavní cíl vašeho plánu.")
+    print(f"3. TASK_SEQUENCE: Úkoly oddělujte ČÁRKOU (např.: Úkol1, Úkol2).")
+    print(f"4. HISTORY: Všechny cesty k souborům najdete v 'architect_history.log'.{END}")
     print(f"{BOLD}------------------------{END}\n")
 
 def create_backup():
@@ -44,14 +52,13 @@ def create_backup():
         print(f"{G_BRIGHT}✅ SYSTEM_BACKUP_CREATED: {backup_filename}{END}")
 
 def create_action_plan(name, main_goal, steps, deadline):
-    # --- NOVINKA v7.01: TVORBA SLOŽKY PRO PLÁNY ---
+    # Vytvoření složky pro plány
     if not os.path.exists('plans'):
         os.makedirs('plans')
 
     current_time = datetime.now()
     file_timestamp = current_time.strftime("%H%M%S")
     
-    # Cesta teď vede DO složky plans/
     txt_file = f"plans/plan_{name.lower()}_{file_timestamp}.txt"
     csv_file = f"plans/plan_{name.lower()}_{file_timestamp}.csv"
 
@@ -70,7 +77,18 @@ def create_action_plan(name, main_goal, steps, deadline):
         for step in steps:
             writer.writerow([main_goal, step, deadline])
 
-    print(f"\n{G_BRIGHT}{BOLD}✅ ARCHIVE_SUCCESS: Files stored in /plans/{END}")
+    # --- NOVINKA v7.02: LOGOVÁNÍ CESTY PRO UŽIVATELE ---
+    log_file = "architect_history.log"
+    abs_txt_path = os.path.abspath(txt_file) # Zjistí úplnou adresu na disku
+    
+    with open(log_file, "a", encoding="utf-8") as log:
+        timestamp = current_time.strftime("%d.%m.%Y %H:%M")
+        log.write(f"[{timestamp}] CÍL: {main_goal} | CESTA: {abs_txt_path}\n")
+
+    print(f"\n{G_BRIGHT}{BOLD}✅ ARCHIVE_SUCCESS: Plán byl vygenerován.{END}")
+    print(f"{G_DARK}📍 PŘESNÁ LOKACE: {abs_txt_path}{END}")
+    print(f"{G_DARK}📖 HISTORIE: Seznam všech vašich souborů najdete v: {os.path.abspath(log_file)}{END}")
+    
     return txt_file
 
 # --- HLAVNÍ CYKLUS ---
@@ -78,7 +96,7 @@ show_boot_sequence()
 create_backup()
 
 while True:
-    print(f"\n{G_BRIGHT}{BOLD}[ GLOBAL_TASK_ARCHITECT_v7.01 ]{END}")
+    print(f"\n{G_BRIGHT}{BOLD}[ GLOBAL_TASK_ARCHITECT_v7.02 ]{END}")
     u_input = input(f"{G_DARK}USER_NAME (or 'help'/'exit'): {END}").strip()
     
     if u_input.lower() == 'exit':
@@ -101,10 +119,11 @@ while True:
     if not list_of_steps:
         print(f"{RED}!! ERROR: SEQUENCE_EMPTY !!{END}")
     else:
-        created = create_action_plan(u_input, u_goal, list_of_steps, u_date)
-        # Pokus o otevření (funguje na Windows)
+        created_file = create_action_plan(u_input, u_goal, list_of_steps, u_date)
+        
+        # Okamžité otevření pro kontrolu
         try:
-            os.startfile(created)
+            os.startfile(created_file)
         except:
             pass
 
