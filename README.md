@@ -1,42 +1,29 @@
-# 🌐 Global Task Architect v7.0 (The Architect Edition)
+# Global Task Architect v7.02 🏗️
 
-### 🚀 Evolution from v1.0 to v7.0
-Tento projekt prošel brutální evolucí. Od jednoduchého generátoru úkolů jsme se dostali k robustnímu systému s ochranou dat, vizuální identitou a uživatelským manuálem.
+A professional Python-based CLI tool designed for structured task planning, automated data management, and activity logging.
 
----
+## 🚀 Key Features
+- **Multi-format Export:** Generates both `.txt` (human-readable) and `.csv` (data-ready) action plans.
+- **Automated Backup System:** Creates safety backups of existing task data upon startup.
+- **Activity Logging:** Maintains a detailed `architect_history.log` with absolute file paths for easy retrieval.
+- **Matrix-style UI:** Enhanced command-line interface with boot sequences and color-coded feedback.
+- **Cross-platform:** Compatible with Windows, Linux, and macOS.
 
-## 🛠️ New Features in v7.0
-* **Matrix Boot Sequence:** Implementováno dynamické načítání systému (`matrix_print`) pro autentický hackerský pocit.
-* **Architect Manual:** Integrovaný systémový pomocník. Stačí napsat `help` v terminálu.
-* **Data Validation:** Program je nyní neprůstřelný. Ošetřuje prázdné vstupy a náhodné mezery (`.strip()`).
-* **System Commands:** Přidána podpora pro příkazy `help` a `exit` přímo v hlavní smyčce.
-* **Automated Backup Engine:** Každé spuštění automaticky zálohuje stávající databázi úkolů do složky `/backups` s časovým razítkem.
-* **Multi-Format Export:** Generuje přehledné `.txt` pro lidi a strukturované `.csv` pro stroje.
+## 🛠️ Technical Details
+- **Language:** Python 3.x
+- **Libraries used:** `os`, `csv`, `shutil`, `datetime`, `sys`, `time`
+- **Architecture:** Modular function-based design with an infinite execution loop.
 
----
+## 📖 How to use
+1. Run the script: `python architect.py`
+2. Follow the on-screen boot sequence.
+3. Enter your **User Name**, **Primary Goal**, and **Tasks** (separated by commas).
+4. Find your generated plans in the `/plans` directory and check your history in `architect_history.log`.
 
-## 💻 Tech Stack
-* **Language:** Python 3.x
-* **Libraries:** `os`, `csv`, `shutil`, `datetime`, `time`, `sys`
-* **UI:** ANSI Escape Sequences (Matrix Green Theme)
-
----
-
-## 📖 How to Use (System Guide)
-1. **Launch:** Spusťte `main.py` a sledujte bootovací sekvenci.
-2. **Commands:**
-    * `help` - Zobrazí manuál pro správné zadávání dat.
-    * `exit` - Bezpečně ukončí systém.
-3. **Input:** Zadejte jméno, cíl a sekvenci úkolů oddělenou čárkou.
-4. **Result:** Systém okamžitě vygeneruje soubory a otevře ten hlavní pro kontrolu.
+## 📝 Version History
+- **v7.02:** Full English localization, absolute path logging, and UI optimization. (Current)
+- **v7.01:** Added backup system and CSV export.
+- **v1.00:** Initial release (basic task input).
 
 ---
-
-## 🛡️ Data Safety
-Všechny plány jsou automaticky verzovány. Pokud omylem přepíšete důležitý soubor, najdete jeho kopii v adresáři `backups/`.
-
----
-
-> **Developer Note:**
-> *"Build. Secure. Automate. Repeat."*
-> Aktuálně pracujeme na verzi **v7.01**, která přinese ještě inteligentnější zpracování dat.
+*Developed as part of a self-taught Python journey.*
