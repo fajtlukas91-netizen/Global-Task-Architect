@@ -38,4 +38,4 @@ Program si automaticky vytváří následující hierarchii:
 - Přidána dynamická synchronizace času v menu.
 
 ---
-*Developed by [Tvé Jméno/Přezdívka] - 2024*
+*Developed by [Lukáš Fajt/netizen] - 2026*
