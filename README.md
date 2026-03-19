@@ -1,29 +1,41 @@
-# Global Task Architect v7.02 🏗️
+# 🏗️ ARCHITECT - Task Management System v7.06
 
-A professional Python-based CLI tool designed for structured task planning, automated data management, and activity logging.
+![Theme: Amber](https://img.shields.io/badge/UI_Theme-Amber_Industrial-orange)
+![Python: 3.x](https://img.shields.io/badge/Python-3.x-blue)
+![License: MIT](https://img.shields.io/badge/License-MIT-green)
 
-## 🚀 Key Features
-- **Multi-format Export:** Generates both `.txt` (human-readable) and `.csv` (data-ready) action plans.
-- **Automated Backup System:** Creates safety backups of existing task data upon startup.
-- **Activity Logging:** Maintains a detailed `architect_history.log` with absolute file paths for easy retrieval.
-- **Matrix-style UI:** Enhanced command-line interface with boot sequences and color-coded feedback.
-- **Cross-platform:** Compatible with Windows, Linux, and macOS.
+**ARCHITECT** je terminálový nástroj pro precizní plánování úkolů a projektů. Vytvořen s důrazem na vizuální estetiku retro terminálů (Amber Edition) a efektivní workflow.
 
-## 🛠️ Technical Details
-- **Language:** Python 3.x
-- **Libraries used:** `os`, `csv`, `shutil`, `datetime`, `sys`, `time`
-- **Architecture:** Modular function-based design with an infinite execution loop.
+## 🚀 Klíčové vlastnosti (v7.06)
 
-## 📖 How to use
-1. Run the script: `python architect.py`
-2. Follow the on-screen boot sequence.
-3. Enter your **User Name**, **Primary Goal**, and **Tasks** (separated by commas).
-4. Find your generated plans in the `/plans` directory and check your history in `architect_history.log`.
+* **Amber Industrial UI:** Přehledné rozhraní v jantarových tónech, které šetří zrak.
+* **Real-time Status Bar:** Horní lišta s dynamickou aktualizací času, jména operátora a statistik.
+* **Sequential Task Entry:** Intuitivní zadávání úkolů jeden po druhém místo složitého psaní čárek.
+* **Profi Export:** Automatické generování `.txt` plánů s ASCII ohraničením.
+* **Smart Editor Link:** Program automaticky detekuje **Notepad++** pro nejlepší zobrazení, jinak použije systémový WordPad.
+* **User Persistence:** Každý operátor má svůj vlastní profil uložený v `JSON` formátu.
 
-## 📝 Version History
-- **v7.02:** Full English localization, absolute path logging, and UI optimization. (Current)
-- **v7.01:** Added backup system and CSV export.
-- **v1.00:** Initial release (basic task input).
+## 🛠️ Instalace a spuštění
+
+1.  Ujistěte se, že máte nainstalovaný **Python 3.x**.
+2.  Stáhněte si tento repozitář.
+3.  Pro nejlepší vizuální zážitek doporučujeme nainstalovat [Notepad++](https://notepad-plus-plus.org/).
+4.  Spusťte program příkazem:
+    ```bash
+    python architect.py
+    ```
+
+## 📂 Struktura složek
+
+Program si automaticky vytváří následující hierarchii:
+* `/plans`: Zde naleznete vygenerované akční plány.
+* `/architect_users`: Databáze uživatelských profilů a statistik.
+
+## 📜 Verze 7.06 Changelog
+- Implementováno jantarové barevné schéma (Amber Edition).
+- Přidána sekvenční smyčka pro zadávání úkolů.
+- Opraveno přetékání textu v ASCII tabulkách.
+- Přidána dynamická synchronizace času v menu.
 
 ---
-*Developed as part of a self-taught Python journey.*
+*Developed by [Tvé Jméno/Přezdívka] - 2024*
