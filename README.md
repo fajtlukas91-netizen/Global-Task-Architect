@@ -52,7 +52,7 @@ python architect.py
 /plans: Vyhrazený prostor pro exporty a systémové reporty.
 
 👨‍💻 Vývojový tým
-Lead Developer: [Lukáš Fajt - Netizen]
+Lead Developer: Lukáš Fajt - Netizen
 Core Engine: ARCHITECT Ultra Framework v10.0
 
 SYSTEM_STATUS: > "Data v pohybu. Termíny pod kontrolou. Systém ARCHITECT."
