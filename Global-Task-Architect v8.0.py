@@ -1,183 +1,145 @@
-import csv
 import os
-import shutil
+import json
+import getpass
 import time
 import sys
-import json
-import subprocess
-import random
-import getpass
 from datetime import datetime
 
-# =================================================================
-# --- MOTIV: AMBER (Jantarová) - STABLE v8.0 ---
-# =================================================================
-P = "\033[33m"       # Jantarová
-A = "\033[93m"       # Jasně žlutá
-S = "\033[90m"       # Šedá
-BOLD = "\033[1m"
-RED = "\033[91m"
-END = "\033[0m"
+# --- HIGH_CONTRAST_PALETTE ---
+AMBER = '\033[33m'       # Standard Amber (Base text)
+GRAY = '\033[90m'        # Dark Gray (Decorations)
+MAGENTA = '\033[95m'     # Bright Magenta (CRITICAL WARNING - 3 days left)
+BOLD_RED = '\033[1;31m'  # Bold Red (EXPIRED)
+RESET = '\033[0m'
 
-USER_DATA_DIR = "architect_users"
-PLANS_DIR = "plans"
-VERSION = "8.0_SECURITY"
+USER_DIR = "architect_users"
+if not os.path.exists(USER_DIR): os.makedirs(USER_DIR)
 
-for folder in [USER_DATA_DIR, PLANS_DIR]:
-    if not os.path.exists(folder):
-        os.makedirs(folder)
+def refined_logo():
+    """Renders the logo once at session start"""
+    print(f"{AMBER}  ▄▀▀▄ █▀▀▄ ▄▀▀▄ █  █ ▀█▀ ▀█▀ █▀▀ ▄▀▀▄ ▀█▀")
+    print(f"  █▄▄█ █▄▄▀ █    █▀▀█  █   █  █▀▀ █    █")
+    print(f"  █  █ █  █ ▀▄▄▀ █  █ ▄█▄  █  █▄▄ ▀▄▄▀ █  {RESET}")
+    print(f"{GRAY}  -- TERMINAL_MANAGEMENT_SYSTEM_v10.0 --{RESET}\n")
 
-# --- SECURITY ENGINE ---
-
-def simple_mask(password):
-    masked = ""
-    for char in password:
-        masked += chr(ord(char) + 2)
-    return masked
-
-def get_user_profile(name):
-    file_path = os.path.join(USER_DATA_DIR, f"{name.lower()}.json")
-    if os.path.exists(file_path):
-        with open(file_path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return None
-
-def save_user_profile(name, data):
-    file_path = os.path.join(USER_DATA_DIR, f"{name.lower()}.json")
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4)
-
-# --- VISUALS ---
-
-def matrix_print(text, delay=0.03):
-    for char in text:
-        sys.stdout.write(char); sys.stdout.flush(); time.sleep(delay)
-    print()
-
-def show_loading_bar(task_name):
-    print(f"{S}{task_name:<25}", end="")
-    for i in range(21):
-        percent = i * 5
-        bar = "█" * i + "░" * (20 - i)
-        sys.stdout.write(f"\r{S}{task_name:<25} [{P}{bar}{S}] {percent}%")
-        sys.stdout.flush(); time.sleep(random.uniform(0.01, 0.03))
-    print(f" {A}[ OK ]{END}")
-
-def show_hacker_boot():
+def login():
+    """Handles operator authentication and registration"""
     os.system('cls' if os.name == 'nt' else 'clear')
-    print(f"{P}")
-    print(r"  █████╗ ██████╗  ██████╗██╗  ██╗██╗████████╗███████╗ ██████╗████████╗")
-    print(r" ██╔══██╗██╔══██╗██╔════╝██║  ██║██║╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝")
-    print(r" ███████║██████╔╝██║     ███████║██║   ██║   █████╗  ██║        ██║   ")
-    print(r" ██╔══██║██╔══██╗██║     ██╔══██║██║   ██║   ██╔══╝  ██║        ██║   ")
-    print(r" ██║  ██║██║  ██║╚██████╗██║  ██║██║   ██║   ███████╗╚██████╗   ██║   ")
-    print(r" ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝   ╚═╝   ╚══════╝ ╚═════╝   ╚═╝   ")
-    print(f"{END}")
-    time.sleep(0.3)
-    show_loading_bar("LOAD_SYSTEM_KERNEL")
-    show_loading_bar("LOAD_SECURITY_MODULE")
-    show_loading_bar("NOTEPAD_LINK_CHECK")
-
-def show_status_bar(user_data):
-    now = datetime.now().strftime("%H:%M:%S")
-    border = f"{S}║{END}"
-    content = f" {BOLD}OP:{END} {A}{user_data['name'].upper():<10}{END} {S}|{END} {BOLD}STATS:{END} {P}{user_data['total_plans']:<4}{END} {S}|{END} {BOLD}SYSTEM_TIME:{END} {A}{now:<8}{END} {S}| SECURED{END} "
-    print(f"{S}╔" + "═"*(len(content)-29) + "╗")
-    print(f"{border}{content}{border}")
-    print(f"{S}╚" + "═"*(len(content)-29) + "╝{END}")
-
-# --- ACCESS CONTROL ---
-
-def security_access_control():
-    show_hacker_boot()
-    print(f"\n{S}AUTHORIZATION_REQUIRED{END}")
-    name = input(f"{BOLD}OPERATOR ID > {END}{P}").strip()
-    if not name: sys.exit()
-    user_data = get_user_profile(name)
-
-    if user_data is None:
-        matrix_print(f"\n{A}>>> NEW_OPERATOR_DETECTED: {name.upper()}{END}")
-        pw1 = getpass.getpass(f"{S}SET ACCESS KEY (hidden)    > {END}")
-        pw2 = getpass.getpass(f"{S}CONFIRM ACCESS KEY (hidden) > {END}")
-        if pw1 == pw2 and pw1 != "":
-            user_data = {"name": name, "total_plans": 0, "access_key": simple_mask(pw1)}
-            save_user_profile(name, user_data)
-            matrix_print(f"\n{A}>>> SECURITY_PROFILE_CREATED_AND_SECURED{END}")
-            time.sleep(1); return user_data
-        else:
-            print(f"\n{RED}### ERROR: KEYS_DO_NOT_MATCH ###{END}"); time.sleep(2); sys.exit()
-    else:
-        matrix_print(f"\n{P}>>> ACCESSING_PROFILE: {name.upper()}{END}")
-        input_pass = getpass.getpass(f"{S}ENTER ACCESS KEY (hidden) > {END}")
-        if simple_mask(input_pass) == user_data['access_key']:
-            matrix_print(f"{A}>>> ACCESS_GRANTED_OPERATOR_{name.upper()}{END}"); time.sleep(1); return user_data
-        else:
-            print(f"\n{RED}### SECURITY_ALERT: ACCESS_DENIED ###{END}"); time.sleep(2); sys.exit()
-
-# --- LOGIC ---
-
-def open_with_pro_editor(file_path):
-    npp_path = r"C:\Program Files\Notepad++\notepad++.exe"
-    abs_p = os.path.abspath(file_path)
-    if os.name == 'nt' and os.path.exists(npp_path):
-        subprocess.Popen([npp_path, abs_p])
-    else:
-        if hasattr(os, 'startfile'): os.startfile(abs_p)
-
-def create_action_plan(user_data):
-    os.system('cls' if os.name == 'nt' else 'clear')
-    show_status_bar(user_data)
-    print(f"\n{BOLD}{A}--- [NEW_PROJECT_WIZARD] ---{END}\n")
-    g = input(f"{P}ENTER PROJECT GOAL: {END}")
-    d = input(f"{P}SET DEADLINE DATE: {END}")
-    steps = []
-    print(f"{P}DEFINE SEQUENTIAL TASKS (Leave empty to finalize):{END}")
-    while True:
-        s = input(f"{S}  > {END}")
-        if not s: break
-        steps.append(s)
-
-    if steps:
-        current_time = datetime.now()
-        file_ts = current_time.strftime("%H%M%S")
-        txt_filename = f"plan_{user_data['name'].lower()}_{file_ts}.txt"
-        txt_file_path = os.path.join(PLANS_DIR, txt_filename)
-
-        with open(txt_file_path, "w", encoding="utf-8") as f:
-            f.write("╔" + "═"*60 + "╗\n")
-            f.write(f"║ ARCHITECT REPORT - v{VERSION:<26} ║\n")
-            f.write("╠" + "═"*60 + "╣\n")
-            f.write(f"║ OP: {user_data['name'].upper():<54}║\n")
-            f.write(f"║ GOAL: {g.upper():<52}║\n")
-            f.write(f"║ DATE: {current_time.strftime('%Y-%m-%d'):<48}║\n")
-            f.write("╠" + "═"*60 + "╣\n")
-            for i, s in enumerate(steps, 1):
-                f.write(f"║ [{i:02}] [ ] {s:<47}║\n")
-            f.write("╚" + "═"*60 + "╝\n")
-
-        user_data["total_plans"] += 1
-        save_user_profile(user_data["name"], user_data)
-        
-        # --- TADY JE TO VRÁCENO ---
-        print(f"\n{A}>>> DATA_ARCHIVED_SUCCESSFULLY{END}")
-        print(f"{S}PATH: {os.path.abspath(txt_file_path)}{END}") # <--- Tahle řádka tam chyběla
-        
-        open_with_pro_editor(txt_file_path)
-    else:
-        print(f"\n{RED}>>> ABORTED: NO_TASKS_DEFINED{END}")
+    refined_logo()
+    print(f"  {GRAY}>> {AMBER}SYSTEM AUTHORIZATION{RESET}")
+    op_id = input(f"  {AMBER}OPERATOR_ID: {RESET}").strip()
+    if not op_id: return None, None
     
-    input(f"\n{S}Press Enter to return to Command Menu...{END}")
+    user_file = os.path.join(USER_DIR, f"{op_id}.json")
+    if os.path.exists(user_file):
+        with open(user_file, 'r', encoding='utf-8') as f:
+            user_data = json.load(f)
+        pwd = getpass.getpass(f"  {AMBER}ACCESS_KEY: {RESET}")
+        if pwd != user_data.get('key', '')[::-1]: 
+            print(f"  {BOLD_RED}ACCESS DENIED.{RESET}")
+            time.sleep(1)
+            return None, None
+    else:
+        print(f"  {AMBER}NEW OPERATOR DETECTED...{RESET}")
+        pwd = getpass.getpass(f"  {AMBER}SET ACCESS_KEY: {RESET}")
+        user_data = {"key": pwd[::-1], "tasks": []}
+        with open(user_file, 'w', encoding='utf-8') as f:
+            json.dump(user_data, f, indent=4)
+    
+    print(f"  {AMBER}LOGGED IN. SYSTEM READY.{RESET}")
+    time.sleep(0.5)
+    return op_id, user_data
 
-# --- START ---
-user_data = security_access_control()
+def system_health_check(tasks):
+    """Scans deadlines and applies priority color-coding"""
+    today = datetime.now()
+    found_issues = False
+    print(f"\n  {GRAY}[ DEADLINE ANALYSIS ]{RESET}")
+    
+    if not tasks:
+        print(f"  {GRAY}DATABASE IS CURRENTLY EMPTY{RESET}")
+    else:
+        for t in tasks:
+            d_str = t.get('deadline')
+            if d_str and d_str != "NONE":
+                try:
+                    dt = datetime.strptime(d_str, "%d.%m.%Y")
+                    diff = (dt - today).days + 1
+                    
+                    if diff < 0:
+                        # EXPIRED
+                        print(f"  {BOLD_RED}[!!!] EXPIRED: {t['title']} ({d_str}){RESET}")
+                        found_issues = True
+                    elif diff <= 3:
+                        # CRITICAL (3 days left)
+                        print(f"  {MAGENTA}[ * ] WARNING: {t['title']} ({diff} days left!){RESET}")
+                        found_issues = True
+                except ValueError:
+                    continue
+                
+    if not found_issues and tasks:
+        print(f"  {AMBER}STATUS: NOMINAL (All deadlines cleared){RESET}")
+    print(f"  {GRAY}------------------------------------------{RESET}")
 
-while True:
-    os.system('cls' if os.name == 'nt' else 'clear')
-    show_status_bar(user_data)
-    print(f"\n{BOLD}{P}AVAILABLE_COMMANDS:{END}")
-    print(f"[{A}1{END}] CREATE_NEW_PLAN")
-    print(f"[{A}2{END}] SYSTEM_LOG_OFF")
-    cmd = input(f"\n{BOLD}{S}SYSTEM@CONSOLE > {END}").strip()
+def main():
+    op_id, user_data = login()
+    if not op_id: return
 
-    if cmd == '2': break
-    elif cmd == '1': create_action_plan(user_data)
+    user_file = os.path.join(USER_DIR, f"{op_id}.json")
+    print(f"  {GRAY}ACTIVE SESSION: {AMBER}{op_id}{RESET}")
+
+    while True:
+        system_health_check(user_data['tasks'])
+        
+        # English Menu
+        print(f"  {AMBER}[1] NEW PROJECT  [2] DATABASE  [Q] LOGOUT{RESET}")
+        choice = input(f"\n  {AMBER}COMMAND >> {RESET}").upper()
+
+        if choice == '1':
+            title = input(f"  {AMBER}PROJECT NAME: {RESET}").strip()
+            if title:
+                deadline = "NONE"
+                while True:
+                    d_in = input(f"  {AMBER}DEADLINE (DD.MM.YYYY / ENTER for NONE): {RESET}").strip()
+                    if not d_in: break
+                    try:
+                        datetime.strptime(d_in, "%d.%m.%Y")
+                        deadline = d_in; break
+                    except ValueError:
+                        print(f"  {BOLD_RED}[!] ERROR: Enter date as DD.MM.YYYY (e.g., 25.12.2026){RESET}")
+                
+                user_data['tasks'].append({"title": title, "deadline": deadline})
+                with open(user_file, 'w', encoding='utf-8') as f:
+                    json.dump(user_data, f, indent=4)
+                print(f"  {AMBER}>> RECORD SUCCESSFULLY ARCHIVED.{RESET}")
+
+        elif choice == '2':
+            print(f"\n  {GRAY}--- PROJECT DATABASE ---{RESET}")
+            if not user_data['tasks']:
+                print(f"  {GRAY}(Database is empty){RESET}")
+            else:
+                for i, t in enumerate(user_data['tasks']):
+                    print(f"  {GRAY}[{i}] {AMBER}{t['title']:<18} {GRAY}| DEADLINE: {t.get('deadline','---')}{RESET}")
+                
+                print(f"\n  {GRAY}Enter ID to DELETE or ENTER to return{RESET}")
+                del_in = input(f"  {AMBER}ACTION: {RESET}").strip()
+                if del_in.isdigit():
+                    idx = int(del_in)
+                    if 0 <= idx < len(user_data['tasks']):
+                        removed = user_data['tasks'].pop(idx)
+                        with open(user_file, 'w', encoding='utf-8') as f:
+                            json.dump(user_data, f, indent=4)
+                        print(f"  {BOLD_RED}REMOVED: {removed['title']}{RESET}")
+                        time.sleep(0.5)
+
+        elif choice == 'Q':
+            print(f"  {AMBER}SYSTEM SHUTDOWN. SESSION TERMINATED.{RESET}")
+            time.sleep(0.5)
+            break
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print(f"\n  {AMBER}EMERGENCY SYSTEM SHUTDOWN...{RESET}")
+        sys.exit()
