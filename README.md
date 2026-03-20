@@ -1,58 +1,59 @@
-# 🏗️ ARCHITECT | Terminal Management System (v9.05)
+# 🏗️ ARCHITECT | Terminal Management System (v10.0)
 
-**ARCHITECT** je výkonný, minimalistický nástroj pro správu projektů a sledování deadlinů běžící přímo v terminálu. Je navržen pro uživatele, kteří vyžadují **čistý kód**, **industriální estetiku** a **maximální přehlednost** bez zbytečného vizuálního šumu.
+**ARCHITECT** is a high-performance, minimalist project management and deadline tracking engine designed for modern terminal environments. It merges 80s industrial aesthetics with robust data processing logic.
 
-![Version](https://img.shields.io/badge/Version-9.05_Ultra-ffcc00?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-10.0_Ultra-ffcc00?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.8+-blue?style=for-the-badge)
 ![UI](https://img.shields.io/badge/UI-Deep_Amber-333333?style=for-the-badge)
 
 ---
 
-## 💎 Filozofie projektu
-ARCHITECT byl vytvořen s cílem eliminovat rozptylování běžných grafických aplikací. Zaměřuje se na čistotu výstupu, rychlost zápisu a okamžitou vizuální odezvu. Všechny procesy jsou optimalizovány pro lineární plynulost bez rušivého problikávání obrazovky.
+## 💎 Project Philosophy
+ARCHITECT was engineered to eliminate the distractions of modern GUIs. It prioritizes clean output, rapid data entry, and immediate visual feedback. All processes are optimized for linear flow, ensuring a stable display without flickering or unnecessary screen clearing.
 
-## 🔥 Klíčové vlastnosti
+## 🔥 Key Features
 
 ### 🎨 High-Contrast Alert System
-Unikátní barevné schéma postavené na **Deep Amber** (jantarové) paletě, doplněné o agresivní signalizaci kritických stavů:
-* 🟧 **Jantarová:** Standardní operační režim a systémové výpisy.
-* 🟪 **Magenta (Fialová):** Kritické varování (Termín vyprší do 3 dnů). Navrženo pro maximální barevný kontrast k základnímu schématu.
-* 🟥 **Bold Red (Tučná červená):** Expirované záznamy vyžadující okamžitou pozornost operátora.
+A unique color-coded notification system built on a **Deep Amber** foundation, featuring aggressive signaling for critical tasks:
+* 🟧 **Amber:** Standard operational mode and system logs.
+* 🟪 **Magenta:** Critical Warning (Deadline within 3 days). Designed for maximum visual contrast against the amber base.
+* 🟥 **Bold Red:** Expired records requiring immediate operator intervention.
 
 ### 🛡️ Persistent Security & Profiles
-* **Decentralizovaná data:** Každý operátor spravuje vlastní izolovanou databázi v zabezpečeném formátu JSON.
-* **Access Key Protection:** Přístup je chráněn algoritmem zpětné verifikace klíče (Reverse-Key Logic).
-* **Fault Tolerance:** Robustní ošetření vstupů (try-except shield) zabraňující pádu aplikace při zadání nevalidních datových formátů.
+* **Decentralized Data:** Each operator manages an isolated database stored in a secure JSON structure.
+* **Access Key Protection:** Authentication secured via a Reverse-Key logic verification.
+* **Fault Tolerance:** Robust exception handling (Try-Except Shield) prevents system crashes during invalid date inputs.
 
 ### ⚡ Stationary UI Logic
-Na rozdíl od běžných terminálových skriptů ARCHITECT využívá **Single-Header Logic**. Logo zůstává staticky na vrcholu relace, zatímco historie akcí a analýzy plynule přibývají pod ním. To zajišťuje přirozenou čitelnost a stabilitu zobrazení.
+Unlike standard scripts, ARCHITECT utilizes **Single-Header Logic**. The ASCII logo remains static at the top of the session, while action history and analysis flow naturally below it, ensuring professional readability.
 
 ---
 
-## 🚀 Instalace
+## 🚀 Installation
 
-1. **Klonování repozitáře:**
+1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/](https://github.com/)[TVOJE-UZIVATELSKE-JMENO]/architect-system.git
+   git clone [https://github.com/](https://github.com/)[YOUR-USERNAME]/architect-system.git
    cd architect-system
-Spuštění:
+Launch System:
 
 Bash
 python architect.py
-🛠️ Ovládací protokoly
-[1] NOVÝ: Inicializace nového záznamu. Vyžaduje název projektu a termín ve formátu DD.MM.YYYY.
+🛠️ Operational Protocols
+[1] NEW PROJECT: Initialize a new record. Requires a project name and a deadline (DD.MM.YYYY). Leaving the deadline empty defaults to NONE.
 
-[2] DATABÁZE: Interaktivní prohlížeč všech záznamů s funkcí okamžité terminace (smazání) úkolu zadáním jeho ID.
+[2] DATABASE: Interactive project browser. Allows for immediate record termination (deletion) by entering the specific ID.
 
-[Q] ODHLÁSIT: Bezpečné ukončení relace, finalizace zápisu do JSON a odpojení od systému.
+[Q] LOGOUT: Securely disconnects the session, finalizes the JSON write-cycle, and terminates the process.
 
-📂 Datová architektura
-/architect_users: Úložiště uživatelských profilů a jejich specifických úkolů.
+📂 Data Architecture
+/architect_users: Local storage for operator profiles and task encrypted-ready structures.
 
-/plans: Vyhrazený prostor pro exporty a systémové reporty.
+/plans: Reserved directory for future export modules and system reports.
 
-👨‍💻 Vývojový tým
-Lead Developer: Lukáš Fajt - Netizen
+👨‍💻 Development
+Lead Developer: Lukas Fajt - Netizen
+
 Core Engine: ARCHITECT Ultra Framework v10.0
 
-SYSTEM_STATUS: > "Data v pohybu. Termíny pod kontrolou. Systém ARCHITECT."
+SYSTEM_STATUS: > "Data in motion. Deadlines under control. System ARCHITECT."
