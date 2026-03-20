@@ -1,40 +1,51 @@
-# 🏗️ ARCHITECT - Task Management System v8.0 [SECURITY]
+# 🏗️ ARCHITECT - Task Management System [v8.0 SECURITY]
 
 ![Architect Demo](github%20demo.png)
 
-**Advanced Task Management System with Retro Amber UI, Secure Access Control, and Automated Reporting.**
-
-ARCHITECT je terminálový nástroj pro precizní plánování úkolů, navržený s důrazem na estetiku 80. let (Amber Terminal) a efektivitu moderních vývojářských workflow. Od verze 8.0 obsahuje plnohodnotný systém správy uživatelů a zabezpečení.
-
----
-
-### 🛡️ Novinky ve verzi 8.0:
-* **Security Core:** Integrovaný přihlašovací systém pro více operátorů.
-* **Encrypted Keys:** Hesla nejsou ukládána v čistém textu (Simple Masking v8).
-* **Hidden Input:** Real-time maskování hesla v konzoli pomocí knihovny `getpass`.
-* **User Profiles:** Individuální sledování statistik (počet vytvořených plánů) pro každého uživatele.
-* **Hacker Boot Sequence:** Nová startovací sekvence s kontrolou integrity systému.
-
-### 🚀 Hlavní funkce:
-* **Retro UI:** Jantarové barevné schéma pro minimální únavu očí.
-* **Automated Reporting:** Generování profesionálních `.txt` reportů s ASCII tabulkami.
-* **Smart Integration:** Automatická detekce a otevírání reportů v **Notepad++** (nebo systémovém editoru).
-* **Persistent Storage:** Data uživatelů a plány jsou bezpečně ukládány do JSON a TXT struktury.
+### ⚙️ SYSTEM_CORE_SPECIFICATIONS
+ARCHITECT je terminálový engine pro precizní plánování úkolů a správu projektů. Navržen pro maximální efektivitu v příkazové řádce (CLI) s důrazem na Amber Terminal estetiku a automatizovaný reporting.
 
 ---
 
-### 🛠️ Jak začít:
-1. Spusťte hlavní skript: `python architect_v8.py`
-2. **Autorizace:** Zadejte své ID operátora (noví uživatelé si při prvním spuštění nastaví svůj přístupový klíč).
-3. **Příkazy:**
-    * `[1]` - Spustí průvodce vytvořením nového projektu.
-    * `[2]` - Bezpečné odhlášení ze systému.
-
-### 📁 Struktura složek:
-* `/architect_users` - Šifrované profily operátorů (JSON).
-* `/plans` - Archivované akční plány (TXT).
+### 🛡️ SECURITY_LAYER [NEW_IN_v8.0]
+Verze 8.0 přináší kompletní přepracování přístupových práv a ochranu uživatelských dat:
+* **AUTHORIZATION_GATE:** Systém vyžaduje validní OPERATOR ID pro přístup do hlavního menu.
+* **ACCESS_KEY_ENCRYPTION:** Implementace Simple Masking algoritmu. Hesla nejsou v JSON databázi čitelná (v8.01_SEC).
+* **HIDDEN_INPUT_PROTOCOL:** Využití knihovny `getpass` pro maskování vstupu hesla v reálném čase.
+* **INDIVIDUAL_PROFILES:** Každý operátor má vlastní JSON profil se statistikami (Total Plans) a unikátním klíčem.
 
 ---
 
-> **Status:** STABLE RELEASE v8.0_SECURITY  
-> **Environment:** Python 3.x | Windows Terminal Recommended
+### 🎨 VISUAL_SPECIFICATIONS (AMBER_MONITOR)
+Systém simuluje vzhled jantarových monitorů z 80. let pomocí ANSI kódování:
+* `\033[33m` - **AMBER_PRIMARY** (Standardní text a UI prvky)
+* `\033[93m` - **AMBER_HIGHLIGHT** (Důležité systémové stavy a potvrzení)
+* `\033[90m` - **GRAY_FRAME** (Rámečky, linky a cesty k souborům)
+* `\033[91m` - **SECURITY_ALERT** (Zamítnutí přístupu, kritické chyby)
+
+---
+
+### 🚀 CORE_LOGIC_&_INTEGRATION
+* **AUTOMATED_REPORTING:** Generování `.txt` reportů s precizní ASCII hlavičkou a očíslovanými úkoly.
+* **NOTEPAD++_LINK:** Automatická detekce cesty `C:\Program Files\Notepad++\notepad++.exe`. Okamžité otevření vygenerovaného plánu po archivaci.
+* **BOOT_PROTOCOL:** Startovací sekvence s kontrolou integrity jádra a načítáním bezpečnostních modulů.
+* **DATA_PERSISTENCE:** * `/plans/` - Úložiště akčních plánů (formát TXT).
+    * `/architect_users/` - Zabezpečená databáze operátorů (formát JSON).
+
+---
+
+### 🛠️ OPERATION_GUIDE
+1. **START:** Spusťte `architect_v8.py`.
+2. **IDENT:** Zadejte své OPERATOR ID (pro nové uživatele se spustí REG_PROTOCOL).
+3. **SECURE:** Definujte svůj Access Key (vstup je skrytý).
+4. **EXECUTE:** V menu zvolte `[1]` pro zahájení NEW_PROJECT_WIZARD.
+
+---
+
+### 📂 DIRECTORY_TREE
+```text
+/
+├── architect_v8.py          # Hlavní systémový skript
+├── github demo.png          # Vizuální dokumentace
+├── plans/                   # Výstupní složka reportů (.txt)
+└── architect_users/         # Databáze profilů a hesel (.json)
