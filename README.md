@@ -1,41 +1,40 @@
-# 🏗️ ARCHITECT - Task Management System v7.06
+# 🏗️ ARCHITECT - Task Management System v8.0 [SECURITY]
 
-![Theme: Amber](https://img.shields.io/badge/UI_Theme-Amber_Industrial-orange)
-![Python: 3.x](https://img.shields.io/badge/Python-3.x-blue)
-![License: MIT](https://img.shields.io/badge/License-MIT-green)
+![Architect Demo](github%20demo.png)
 
-**ARCHITECT** je terminálový nástroj pro precizní plánování úkolů a projektů. Vytvořen s důrazem na vizuální estetiku retro terminálů (Amber Edition) a efektivní workflow.
+**Advanced Task Management System with Retro Amber UI, Secure Access Control, and Automated Reporting.**
 
-## 🚀 Klíčové vlastnosti (v7.06)
-
-* **Amber Industrial UI:** Přehledné rozhraní v jantarových tónech, které šetří zrak.
-* **Real-time Status Bar:** Horní lišta s dynamickou aktualizací času, jména operátora a statistik.
-* **Sequential Task Entry:** Intuitivní zadávání úkolů jeden po druhém místo složitého psaní čárek.
-* **Profi Export:** Automatické generování `.txt` plánů s ASCII ohraničením.
-* **Smart Editor Link:** Program automaticky detekuje **Notepad++** pro nejlepší zobrazení, jinak použije systémový WordPad.
-* **User Persistence:** Každý operátor má svůj vlastní profil uložený v `JSON` formátu.
-
-## 🛠️ Instalace a spuštění
-
-1.  Ujistěte se, že máte nainstalovaný **Python 3.x**.
-2.  Stáhněte si tento repozitář.
-3.  Pro nejlepší vizuální zážitek doporučujeme nainstalovat [Notepad++](https://notepad-plus-plus.org/).
-4.  Spusťte program příkazem:
-    ```bash
-    python architect.py
-    ```
-
-## 📂 Struktura složek
-
-Program si automaticky vytváří následující hierarchii:
-* `/plans`: Zde naleznete vygenerované akční plány.
-* `/architect_users`: Databáze uživatelských profilů a statistik.
-
-## 📜 Verze 7.06 Changelog
-- Implementováno jantarové barevné schéma (Amber Edition).
-- Přidána sekvenční smyčka pro zadávání úkolů.
-- Opraveno přetékání textu v ASCII tabulkách.
-- Přidána dynamická synchronizace času v menu.
+ARCHITECT je terminálový nástroj pro precizní plánování úkolů, navržený s důrazem na estetiku 80. let (Amber Terminal) a efektivitu moderních vývojářských workflow. Od verze 8.0 obsahuje plnohodnotný systém správy uživatelů a zabezpečení.
 
 ---
-*Developed by [fajtlukas91-netizen](https://github.com/fajtlukas91-netizen) - 2026*
+
+### 🛡️ Novinky ve verzi 8.0:
+* **Security Core:** Integrovaný přihlašovací systém pro více operátorů.
+* **Encrypted Keys:** Hesla nejsou ukládána v čistém textu (Simple Masking v8).
+* **Hidden Input:** Real-time maskování hesla v konzoli pomocí knihovny `getpass`.
+* **User Profiles:** Individuální sledování statistik (počet vytvořených plánů) pro každého uživatele.
+* **Hacker Boot Sequence:** Nová startovací sekvence s kontrolou integrity systému.
+
+### 🚀 Hlavní funkce:
+* **Retro UI:** Jantarové barevné schéma pro minimální únavu očí.
+* **Automated Reporting:** Generování profesionálních `.txt` reportů s ASCII tabulkami.
+* **Smart Integration:** Automatická detekce a otevírání reportů v **Notepad++** (nebo systémovém editoru).
+* **Persistent Storage:** Data uživatelů a plány jsou bezpečně ukládány do JSON a TXT struktury.
+
+---
+
+### 🛠️ Jak začít:
+1. Spusťte hlavní skript: `python architect_v8.py`
+2. **Autorizace:** Zadejte své ID operátora (noví uživatelé si při prvním spuštění nastaví svůj přístupový klíč).
+3. **Příkazy:**
+    * `[1]` - Spustí průvodce vytvořením nového projektu.
+    * `[2]` - Bezpečné odhlášení ze systému.
+
+### 📁 Struktura složek:
+* `/architect_users` - Šifrované profily operátorů (JSON).
+* `/plans` - Archivované akční plány (TXT).
+
+---
+
+> **Status:** STABLE RELEASE v8.0_SECURITY  
+> **Environment:** Python 3.x | Windows Terminal Recommended
